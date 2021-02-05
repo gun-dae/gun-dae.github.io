@@ -1,0 +1,98 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style type="text/css">
+        #mynetwork {
+            margin:0 auto;
+            box-shadow: 1px 1px 3px;
+            width: 1200px;
+            height: 800px;
+            border: 1px solid lightgray;
+        }
+        @media(max-width:800px) {
+          #mynetwork {
+              margin:0 auto;
+              box-shadow: 1px 1px 3px;
+              width: 100%;
+              height: 80%;
+              border: 1px solid lightgray;
+          }
+        }
+    </style>
+</head>
+<body>
+
+<h1 style="text-align:center">DEVELOPED SOON...</h1>
+<div id="mynetwork"></div>
+<script type="text/javascript">
+
+    // 노드로 이루어진 배열
+    var nodes = new vis.DataSet([
+        {id: 1, label: '육군'},
+        {id: 2, label: '해군'},
+        {id: 3, label: '공군'},
+        {id: 4, label: '해병대'},
+        {id: 5, label: '의무경찰'},
+        {id: 6, label: '의무소방'},
+        {id: 7, label: '해양경찰'},
+        {id: 8, label: '상근예비역', color: "#ffd900", shape: "box"},
+        {id: 9, label: '사회복무요원', color: "#ffd900", shape: "box"},
+        {id: 10, label: '산업기능요원', color: "#ffd900", shape: "box"},
+        {id: 11, label: '전문연구요원', color: "#ffd900", shape: "box"},
+        {id: 12, label: '카투사'},
+        {id: 13, label: '기술행정병'},
+        {id: 14, label: '전문특기병'},
+        {id: 15, label: '현역병', color: "#ffd900", shape: "square"},
+        {id: 16, label: '전환복무', color: "#ffd900", shape: "square"},
+        {id: 17, label: '기타 병역 방법', color: "#ffd900", shape: "square"},
+    ]);
+
+    // 엣지로 이루어진 배열. 방향성 주의!
+    var edges = new vis.DataSet([
+        {from: 15, to: 1, arrows: "to"},
+        {from: 15, to: 2, arrows: "to"},
+        {from: 15, to: 3, arrows: "to"},
+        {from: 15, to: 4, arrows: "to"},
+        {from: 1, to: 12},
+        {from: 1, to: 13},
+        {from: 1, to: 14},
+        {from: 10, to: 11},
+        {from: 10, to: 8},
+        {from: 8, to: 9},
+        {from: 16, to: 5, arrows: "to"},
+        {from: 16, to: 6, arrows: "to"},
+        {from: 16, to: 7, arrows: "to"},
+    ]);
+
+    // 네트워크 생성
+    var container = document.getElementById('mynetwork');
+
+    // provide the data in the vis format
+    var data = {
+        nodes: nodes,
+        edges: edges
+    };
+
+    //네트워크 그래프의 기능, CSS 작성
+    var options = {
+      nodes: {
+        font : {
+            size : 20,
+            color : '#000000'
+        }
+      },
+    };
+
+    // initialize your network!
+    var network = new vis.Network(container, data, options);
+
+//클릭시 링크 구현
+    network.on("click", function (params) {
+    if (params.nodes[0] == 2) {
+      alert( '해군을 클릭했습니다!' );
+      window.open('https://www.mma.go.kr/contents.do?mc=mma0000537', '_blank');
+    }
+  });
+</script>
+</body>
+</html>
